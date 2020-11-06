@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "864318912509",
+    "firebase_url": "https://grouptravelplanner-252f4.firebaseio.com",
+    "project_id": "grouptravelplanner-252f4",
+    "storage_bucket": "grouptravelplanner-252f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:864318912509:android:03b9c3e2706dee43b88b94",
+        "android_client_info": {
+          "package_name": "com.titans.grouptravelplanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "864318912509-g4utj7mvnuaqu2dphpt5tatcefjvnobi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.titans.grouptravelplanner",
+            "certificate_hash": "b803098124ceef7a216154dee8039ada9bf72919"
+          }
+        },
+        {
+          "client_id": "864318912509-ti81uuv5e7e2h59vmc1oa1rrsccoom92.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiQGJ5YmtWg-B3hPkPz3K6D9QQ__6Gr7U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "864318912509-ti81uuv5e7e2h59vmc1oa1rrsccoom92.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
