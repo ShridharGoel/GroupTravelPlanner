@@ -178,61 +178,46 @@
                 android:id="@+id/like_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:mfb_not_favorite_image="@drawable/ic_favorite_border_black_24dp"
                 app:mfb_favorite_image="@drawable/ic_favorite_red_24dp"
-                />
+                app:mfb_not_favorite_image="@drawable/ic_favorite_border_black_24dp" />
 
             <TextView
-                android:visibility="gone"
-                android:textSize="17sp"
                 android:id="@+id/like_count"
-                android:layout_toEndOf="@id/like_button"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/like_button"
                 android:maxLines="6"
-                android:layout_height="wrap_content" />
+                android:textSize="17sp"
+                android:visibility="gone" />
 
             <com.github.ivbaranov.mfb.MaterialFavoriteButton
                 android:id="@+id/comment_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:tint="?android:textColorPrimary"
                 android:layout_toEndOf="@+id/like_count"
-                app:mfb_favorite_image="@drawable/ic_comment_liked"
-                app:mfb_not_favorite_image="@drawable/ic_comment_liked"
-                />
-
-            <com.github.ivbaranov.mfb.MaterialFavoriteButton
-                android:id="@+id/stat_button"
-                android:layout_width="wrap_content"
                 android:tint="?android:textColorPrimary"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/comment_button"
-                app:mfb_favorite_image="@drawable/ic_show_chart_24dp"
-                app:mfb_not_favorite_image="@drawable/ic_show_chart_24dp"
-                />
-
+                app:mfb_favorite_image="@drawable/ic_comment_liked"
+                app:mfb_not_favorite_image="@drawable/ic_comment_liked" />
 
             <com.github.ivbaranov.mfb.MaterialFavoriteButton
                 android:id="@+id/save_button"
-                android:layout_toStartOf="@+id/share_button"
                 android:layout_width="wrap_content"
-                android:tint="?android:textColorPrimary"
                 android:layout_height="wrap_content"
-                app:mfb_not_favorite_image="@drawable/ic_bookmark_border_black_24dp"
+                android:layout_toStartOf="@+id/share_button"
+                android:tint="?android:textColorPrimary"
                 app:mfb_favorite_image="@drawable/ic_bookmark_black_24dp"
-                />
+                app:mfb_not_favorite_image="@drawable/ic_bookmark_border_black_24dp" />
 
             <com.github.ivbaranov.mfb.MaterialFavoriteButton
                 android:id="@+id/share_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:tint="?android:textColorPrimary"
                 android:layout_marginEnd="10dp"
+                android:tint="?android:textColorPrimary"
                 app:mfb_favorite_image="@drawable/ic_share_liked"
-                app:mfb_not_favorite_image="@drawable/ic_share_liked"
-                />
+                app:mfb_not_favorite_image="@drawable/ic_share_liked" />
 
         </RelativeLayout>
 

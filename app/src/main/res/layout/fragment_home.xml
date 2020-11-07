@@ -66,4 +66,12 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <Button
+        android:id="@+id/create_post"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Create a new post"
+        android:layout_gravity="bottom"
+        />
+
 </FrameLayout>

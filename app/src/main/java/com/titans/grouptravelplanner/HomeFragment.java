@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,6 +47,8 @@ public class HomeFragment extends Fragment {
     private SwipeRefreshLayout refreshLayout;
     private PostsAdapter mAdapter_v19;
 
+    Button createPost;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -67,6 +70,13 @@ public class HomeFragment extends Fragment {
         mFirestore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+
+        getView().findViewById(R.id.create_post).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PostsActivity.startActivity(getActivity());
+            }
+        });
 
         refreshLayout=view.findViewById(R.id.refreshLayout);
 
@@ -96,6 +106,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void getAllPosts() {
+
+        System.out.println("Fetching posts");
 
         getView().findViewById(R.id.default_item).setVisibility(View.GONE);
         refreshLayout.setRefreshing(true);

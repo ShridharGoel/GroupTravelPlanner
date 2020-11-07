@@ -48,6 +48,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:21.0.0'
     implementation 'com.google.firebase:firebase-core:18.0.0'
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.google.android.gms:play-services-places:17.0.0'
     implementation "com.firebase:firebase-client-android:2.3.1"

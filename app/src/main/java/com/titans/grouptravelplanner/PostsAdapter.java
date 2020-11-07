@@ -10,7 +10,6 @@ import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -59,9 +58,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
-import com.watermark.androidwm_light.WatermarkBuilder;
-import com.watermark.androidwm_light.bean.WatermarkPosition;
-import com.watermark.androidwm_light.bean.WatermarkText;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -82,11 +78,6 @@ import java.util.TimerTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.grantland.widget.AutofitTextView;
-
-
-/**
- * Created by amsavarthan on 22/2/18.
- */
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
 
@@ -417,6 +408,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             holder.user_name.setText(postList.get(pos).getUsername());
         }
 
+
+
         Glide.with(context)
                 .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.placeholder))
                 .load(postList.get(pos).getUserimage())
@@ -430,85 +423,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             enableDoubleTap(holder);
         }
 
-        /*holder.stat_btn.setOnFavoriteChangeListener((buttonView, favorite) -> {
-
-            mmBottomSheetDialog.show();
-
-            final ProgressBar pbar=statsheetView.findViewById(R.id.pbar);
-            final LinearLayout main=statsheetView.findViewById(R.id.main);
-            final TextView smile=statsheetView.findViewById(R.id.smiles);
-            final TextView save=statsheetView.findViewById(R.id.saves);
-
-            pbar.setVisibility(View.VISIBLE);
-            main.setVisibility(View.GONE);
-            FirebaseFirestore.getInstance().collection("Posts")
-                    .document(postList.get(holder.getAdapterPosition()).postId)
-                    .get()
-                    .addOnSuccessListener(documentSnapshot -> {
-                        try {
-                            List<String> liked_users = (List<String>) documentSnapshot.get("liked_users");
-                            smile.setText(String.format(context.getString(R.string.s_people_have_smiled_for_this_post), liked_users.size()));
-                        }catch (Exception e){
-                            smile.setText(String.format(context.getString(R.string.s_people_have_smiled_for_this_post), 0));
-                        }
-
-                        try {
-                            List<String> saved_users = (List<String>) documentSnapshot.get("saved_users");
-                            save.setText(String.format(context.getString(R.string.s_people_have_saved_this_post), saved_users.size()));
-                        }catch (Exception e){
-                            save.setText(String.format(context.getString(R.string.s_people_have_saved_this_post), 0));
-                        }
-
-                        pbar.setVisibility(View.GONE);
-                        main.setVisibility(View.VISIBLE);
-
-                    })
-                    .addOnFailureListener(Throwable::printStackTrace);
-
-        });*/
-
-        holder.stat_btn.setOnFavoriteChangeListener((buttonView, favorite) -> {
-
-            mmBottomSheetDialog.show();
-
-            /*final ProgressBar pbar=statsheetView.findViewById(R.id.pbar);
-            final LinearLayout main=statsheetView.findViewById(R.id.main);
-            final TextView smile=statsheetView.findViewById(R.id.smiles);
-            final TextView save=statsheetView.findViewById(R.id.saves);
-*/
-            /*pbar.setVisibility(View.VISIBLE);
-            main.setVisibility(View.GONE);
-            */FirebaseFirestore.getInstance().collection("Posts")
-                    .document(postList.get(holder.getAdapterPosition()).postId)
-                    .collection("Liked_Users")
-                    .get()
-                    .addOnSuccessListener(queryDocumentSnapshots -> {
-
-                        //smile.setText(String.format(context.getString(R.string.s_people_have_smiled_for_this_post),queryDocumentSnapshots.size()));
-
-                        FirebaseFirestore.getInstance().collection("Posts")
-                                .document(postList.get(holder.getAdapterPosition()).postId)
-                                .collection("Saved_Users")
-                                .get()
-                                .addOnSuccessListener(queryDocumentSnapshots1 -> {
-
-                                    //save.setText(String.format(context.getString(R.string.s_people_have_saved_this_post), queryDocumentSnapshots1.size()));
-                                    //pbar.setVisibility(View.GONE);
-                                    //main.setVisibility(View.VISIBLE);
-
-                                })
-                                .addOnFailureListener(e -> e.printStackTrace());
-
-                    })
-                    .addOnFailureListener(e -> e.printStackTrace());
-
-        });
-
         if (postList.get(pos).getImage_count()==0) {
 
             holder.pager_layout.setVisibility(View.GONE);
             holder.post_desc.setVisibility(View.GONE);
-            //setmImageHolderBg(postList.get(pos).getColor(), holder.mImageholder);
+            setmImageHolderBg(postList.get(pos).getColor(), holder.mImageholder);
             holder.post_text.setVisibility(View.VISIBLE);
             holder.post_text.setText(postList.get(pos).getDescription());
 
@@ -1085,7 +1004,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private View mView;
         private CircleImageView user_image;
         private TextView user_name, timestamp, post_desc;
-        private MaterialFavoriteButton sav_button, like_btn, share_btn, comment_btn,stat_btn;
+        private MaterialFavoriteButton sav_button, like_btn, share_btn, comment_btn;
         private FrameLayout mImageholder;
         private FrameLayout pager_layout;
         private RelativeLayout indicator_holder;
@@ -1104,7 +1023,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             like_btn = mView.findViewById(R.id.like_button);
             vBgLike = mView.findViewById(R.id.vBgLike);
             ivLike = mView.findViewById(R.id.ivLike);
-            stat_btn=mView.findViewById(R.id.stat_button);
             user_name = mView.findViewById(R.id.post_username);
             timestamp = mView.findViewById(R.id.post_timestamp);
             post_desc = mView.findViewById(R.id.post_desc);
@@ -1210,6 +1128,69 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             e.printStackTrace();
         }
         return null;
+    }
+
+    private void setmImageHolderBg(String color, FrameLayout mImageholder) {
+        switch (Integer.parseInt(color)) {
+            case 1:
+                mImageholder.setBackgroundResource(R.drawable.gradient_1);
+                break;
+            case 2:
+                mImageholder.setBackgroundResource(R.drawable.gradient_2);
+                break;
+            case 3:
+                mImageholder.setBackgroundResource(R.drawable.gradient_3);
+                break;
+            case 4:
+                mImageholder.setBackgroundResource(R.drawable.gradient_4);
+                break;
+            case 5:
+                mImageholder.setBackgroundResource(R.drawable.gradient_5);
+                break;
+            case 6:
+                mImageholder.setBackgroundResource(R.drawable.gradient_6);
+                break;
+            case 7:
+                mImageholder.setBackgroundResource(R.drawable.gradient_7);
+                break;
+            case 8:
+                mImageholder.setBackgroundResource(R.drawable.gradient_8);
+                break;
+            case 9:
+                mImageholder.setBackgroundResource(R.drawable.gradient_9);
+                break;
+            case 10:
+                mImageholder.setBackgroundResource(R.drawable.gradient_10);
+                break;
+            case 11:
+                mImageholder.setBackgroundResource(R.drawable.gradient_11);
+                break;
+            case 12:
+                mImageholder.setBackgroundResource(R.drawable.gradient_12);
+                break;
+            case 13:
+                mImageholder.setBackgroundResource(R.drawable.gradient_13);
+                break;
+            case 14:
+                mImageholder.setBackgroundResource(R.drawable.gradient_14);
+                break;
+            case 15:
+                mImageholder.setBackgroundResource(R.drawable.gradient_15);
+                break;
+            case 16:
+                mImageholder.setBackgroundResource(R.drawable.gradient_16);
+                break;
+            case 17:
+                mImageholder.setBackgroundResource(R.drawable.gradient_17);
+                break;
+            case 18:
+                mImageholder.setBackgroundResource(R.drawable.gradient_18);
+                break;
+            case 19:
+                mImageholder.setBackgroundResource(R.drawable.gradient_19);
+                break;
+        }
+
     }
 
 

@@ -70,7 +70,7 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Objects.requireNonNull(getSupportActionBar()).hide();
+        //Objects.requireNonNull(getSupportActionBar()).hide();
         btnLogin = findViewById(R.id.btn_login);
         btnLogin.setVisibility(View.GONE);
 
@@ -162,22 +162,8 @@ public class Login extends AppCompatActivity {
             Intent accountIntent = new Intent(Login.this, MainActivity.class);
             startActivity(accountIntent);
             finish();
-           // showAnimation("stop");
         }
     }
-
-//    public void showAnimation(String s) {
-//        if (s.equals("start")) {
-//            btnLogin.setVisibility(View.GONE);
-//            lottieAnim.setVisibility(View.VISIBLE);
-//            lottieAnim.playAnimation();
-//        }
-//        if (s.equals("stop")) {
-//            btnLogin.setVisibility(View.VISIBLE);
-//            lottieAnim.setVisibility(View.GONE);
-//            lottieAnim.pauseAnimation();
-//        }
-//    }
 
     private void signInGoogle() {
         Log.d(TAG, "signInGoogle called");

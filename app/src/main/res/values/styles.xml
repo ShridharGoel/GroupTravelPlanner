@@ -1,10 +1,47 @@
-<resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimaryDarkk</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkk</item>
+        <item name="colorAccent">@color/colorAccentt</item>
+        <item name="actionBarPopupTheme">@style/AppTheme.PopupOverlay</item>
+    </style>
+
+    <style name="AppTheme2" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkk</item>
+        <item name="colorAccent">@color/colorAccentt</item>
+        <item name="actionBarPopupTheme">@style/AppTheme.PopupOverlay</item>
+    </style>
+
+    <style name="BottomNavigationBarTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorAccentt</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkk</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+
+    <style name="LoginAppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkk</item>
+        <item name="colorAccent">@color/colorAccentt</item>
+    </style>
+
+
+    <style name="UpdateAppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimaryDarkk</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkk</item>
+        <item name="colorAccent">@color/colorAccentt</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+
+    <style name="SplashAppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimaryDarkk</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkk</item>
+        <item name="colorAccent">@color/colorAccentt</item>
     </style>
 
 </resources>
