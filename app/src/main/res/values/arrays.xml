@@ -40,18 +40,16 @@
         <item>Flash Message</item>
         <item>Manage Friends</item>
         <item>About</item>
-        <item />
         <item>Log Out</item>
     </string-array>
 
     <array name="ld_activityScreenIcons">
-        <item>@drawable/ic_bookmark_black_24dp</item>
-        <item>@drawable/ic_bookmark_black_24dp</item>
-        <item>@drawable/ic_bookmark_black_24dp</item>
-        <item>@drawable/ic_bookmark_black_24dp</item>
-        <item>@drawable/ic_bookmark_black_24dp</item>
-        <item>0</item>
-        <item>@drawable/ic_bookmark_black_24dp</item>
+        <item>@drawable/ic_dashboard_black_24dp</item>
+        <item>@drawable/ic_forum_black_24dp</item>
+        <item>@drawable/ic_flash_on_black_24dp</item>
+        <item>@drawable/ic_friend</item>
+        <item>@drawable/ic_about</item>
+        <item>@drawable/ic_exit_to_app_black_24dp</item>
     </array>
 
     <string-array name="details">

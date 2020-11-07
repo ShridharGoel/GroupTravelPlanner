@@ -1,13 +1,5 @@
 package com.titans.grouptravelplanner;
-
 import android.view.ViewGroup;
-
-
-
-/**
- * Created by amsavarthan on 29/3/18.
- */
-
 
 public abstract class DrawerItem<T extends DrawerAdapter.ViewHolder> {
 

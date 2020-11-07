@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
     private static final int POS_SEND_MESSAGE = 2;
     private static final int POS_FRIENDS = 3;
     private static final int POS_ABOUT = 4;
-    private static final int POS_LOGOUT = 6;
+    private static final int POS_LOGOUT = 5;
     public static String userId;
     private boolean mState=true;
     private boolean mStateForum=false;
