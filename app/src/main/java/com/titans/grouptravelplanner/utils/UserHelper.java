@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 public class UserHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "Hify_User_db";
+    public static final String DATABASE_NAME = "User_db";
     public static final String CONTACTS_TABLE_NAME = "user";
     public static final String CONTACTS_COLUMN_ID = "id";
     public static final String CONTACTS_COLUMN_USERNAME = "username";

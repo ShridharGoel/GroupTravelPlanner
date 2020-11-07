@@ -165,7 +165,6 @@ public class Login extends AppCompatActivity {
 
                         Log.i(TAG, "Login Successful, continue to email verified");
 
-                        if (task.getResult().getUser().isEmailVerified()) {
 
 
                             Log.i(TAG, "Email is verified Successful, continue to get token");
@@ -252,34 +251,6 @@ public class Login extends AppCompatActivity {
                                 }
 
                             });
-
-
-                        }
-
-                        else{
-
-                            mDialog.dismiss();
-                            new DialogSheet(Login.this)
-                                    .setTitle("Information")
-                                    .setCancelable(true)
-                                    .setRoundedCorners(true)
-                                    .setColoredNavigationBar(true)
-                                    .setMessage("Email has not been verified, please verify and continue.")
-                                    .setPositiveButton("Send again", v -> task.getResult()
-                                            .getUser()
-                                            .sendEmailVerification()
-                                            .addOnSuccessListener(aVoid -> Toasty.success(Login.this, "Verification email sent", Toasty.LENGTH_SHORT,true).show())
-                                            .addOnFailureListener(e -> Log.e("Error",e.getMessage())))
-                                    .setNegativeButton("Ok", v -> {
-
-                                    })
-                                    .show();
-
-                            if (mAuth.getCurrentUser() != null) {
-                                mAuth.signOut();
-                            }
-
-                        }
 
                     } else {
                         if (task.getException().getMessage().contains("The password is invalid")) {

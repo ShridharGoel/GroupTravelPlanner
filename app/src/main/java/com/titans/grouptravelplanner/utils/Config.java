@@ -15,10 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by amsavarthan on 10/3/18.
- */
-
 public class Config {
 
     public static final String TOPIC_GLOBAL           = "global";
@@ -52,7 +48,7 @@ public class Config {
         NotificationManager notificationManager=(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         List<NotificationChannelGroup> notificationChannelGroups=new ArrayList<>();
-        notificationChannelGroups.add(new NotificationChannelGroup("hify","Hify"));
+        notificationChannelGroups.add(new NotificationChannelGroup("travel_planner","travel_planner"));
         notificationChannelGroups.add(new NotificationChannelGroup("other","Other"));
 
         notificationManager.createNotificationChannelGroups(notificationChannelGroups);
@@ -60,14 +56,12 @@ public class Config {
         NotificationChannel flash_message_channel=new NotificationChannel("flash_message","Flash Messages",NotificationManager.IMPORTANCE_HIGH);
         flash_message_channel.enableLights(true);
         flash_message_channel.enableVibration(true);
-        flash_message_channel.setGroup("hify");
-       // flash_message_channel.setSound(Uri.parse("android.resource://"+context.getPackageName()+"/"+ R.raw.hify_sound), null);
+        flash_message_channel.setGroup("travel_planner");
 
         NotificationChannel comments_channel=new NotificationChannel("comments_channel","Comments",NotificationManager.IMPORTANCE_HIGH);
         comments_channel.enableLights(true);
         comments_channel.enableVibration(true);
         comments_channel.setGroup("hify");
-        //comments_channel.setSound(Uri.parse("android.resource://"+context.getPackageName()+"/"+ R.raw.hify_sound), null);
 
 
         NotificationChannel like_channel=new NotificationChannel("like_channel","Likes",NotificationManager.IMPORTANCE_HIGH);
@@ -105,7 +99,7 @@ public class Config {
         notificationChannels.add(forum_channel);
         notificationChannels.add(sending_channel);
         notificationChannels.add(other_channel);
-        notificationChannels.add(hify_other_channel);
+        notificationChannels.add(other_channel);
 
         notificationManager.createNotificationChannels(notificationChannels);
 

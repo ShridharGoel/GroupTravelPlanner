@@ -258,7 +258,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         try {
 
             OutputStream outputStream=null;
-            File dir=new File(Environment.getExternalStorageDirectory().toString()+"/Pictures/Hify/");
+            File dir=new File(Environment.getExternalStorageDirectory().toString()+"/Pictures/TravelPlanner/");
 
             if(!dir.exists()){
                 dir.mkdirs();

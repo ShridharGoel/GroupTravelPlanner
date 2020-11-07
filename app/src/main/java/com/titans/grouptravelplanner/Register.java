@@ -126,21 +126,6 @@ public class Register extends AppCompatActivity {
         location = findViewById(R.id.location);
         username = findViewById(R.id.username);
 
-        /*LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        Location location1 = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, true));
-        Geocoder geocoder=new Geocoder(getBaseContext(), Locale.getDefault());
-        List<Address> addresses;
-
-        try {
-            addresses=geocoder.getFromLocation(location1.getLatitude(),location1.getLongitude(),1);
-            if(addresses.size()>0){
-                location.setText(addresses.get(0).getLocality());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
         mDialog = new ProgressDialog(this);
         mDialog.setMessage("Please wait..");
         mDialog.setIndeterminate(true);
@@ -383,7 +368,7 @@ public class Register extends AppCompatActivity {
                 options.setCompressionQuality(100);
                 options.setShowCropGrid(true);
 
-                UCrop.of(imageUri, Uri.fromFile(new File(getCacheDir(), "hify_user_profile_picture.png")))
+                UCrop.of(imageUri, Uri.fromFile(new File(getCacheDir(), "user_pic.png")))
                         .withAspectRatio(1, 1)
                         .withOptions(options)
                         .start(Register.this);
