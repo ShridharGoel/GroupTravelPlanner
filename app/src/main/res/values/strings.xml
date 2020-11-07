@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">GroupTravelPlanner</string>
-    <string name="welcome">Welcome to Group Travel Planner!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_bio">Hey there, I am a new user.</string>
+
 </resources>
