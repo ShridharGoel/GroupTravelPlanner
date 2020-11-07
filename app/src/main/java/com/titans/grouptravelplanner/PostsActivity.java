@@ -174,8 +174,6 @@ public class PostsActivity extends AppCompatActivity {
                     System.out.println(text.getText().toString());
                     sendPost();
                 }
-                else
-                    //AnimationUtil.shakeView(text, PostText.this);
                 return true;
 
             default:
@@ -184,9 +182,6 @@ public class PostsActivity extends AppCompatActivity {
     }
 
     private void sendPost() {
-        System.out.println(text.getText().toString());
-
-
         final ProgressDialog mDialog = new ProgressDialog(this);
         mDialog.setMessage("Posting...");
         mDialog.setIndeterminate(true);
@@ -194,7 +189,6 @@ public class PostsActivity extends AppCompatActivity {
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.show();
 
-        System.out.println("Reached here");
 
         mFirestore.collection("Users").document(mCurrentUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -210,25 +204,20 @@ public class PostsActivity extends AppCompatActivity {
                 postMap.put("description", text.getText().toString());
                 postMap.put("color", color);
 
-                System.out.println("Posted");
-
-
                 mFirestore.collection("Posts")
                         .add(postMap)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
-                                //mDialog.dismiss();
+                                mDialog.dismiss();
                                 System.out.println("Success");
-
-                                //Toasty.success(PostText.this, "Post sent", Toasty.LENGTH_SHORT,true).show();
                                 finish();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                //mDialog.dismiss();
+                                mDialog.dismiss();
                                 Log.e("Error sending post", e.getMessage());
                             }
                         });
@@ -237,7 +226,7 @@ public class PostsActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                //mDialog.dismiss();
+                mDialog.dismiss();
                 System.out.println("Failure");
                 Log.e("Error getting user", e.getMessage());
             }
