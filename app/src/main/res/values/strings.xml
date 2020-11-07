@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GroupTravelPlanner</string>
+    <string name="welcome">Welcome to Group Travel Planner!</string>
 </resources>

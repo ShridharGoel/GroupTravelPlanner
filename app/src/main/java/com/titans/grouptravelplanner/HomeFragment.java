@@ -26,13 +26,9 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.titans.grouptravelplanner.Post;
-import com.titans.grouptravelplanner.PostsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment {
 
@@ -45,9 +41,7 @@ public class HomeFragment extends Fragment {
     private View statsheetView;
     private BottomSheetDialog mmBottomSheetDialog;
     private SwipeRefreshLayout refreshLayout;
-    private PostsAdapter mAdapter_v19;
-
-    Button createPost;
+    private PostsAdapter mAdapter;
 
     @Nullable
     @Override
@@ -59,7 +53,7 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         FirebaseApp.initializeApp(getActivity());
-        mAdapter_v19.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
 
     }
 
@@ -71,12 +65,8 @@ public class HomeFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
-        getView().findViewById(R.id.create_post).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PostsActivity.startActivity(getActivity());
-            }
-        });
+        getView().findViewById(R.id.create_post).setOnClickListener(v ->
+                PostsActivity.startActivity(getActivity()));
 
         refreshLayout=view.findViewById(R.id.refreshLayout);
 
@@ -84,30 +74,34 @@ public class HomeFragment extends Fragment {
 
         mPostsList = new ArrayList<>();
 
-        mAdapter_v19 = new PostsAdapter(mPostsList, view.getContext(), getActivity(), mmBottomSheetDialog, statsheetView, false);
+        mAdapter = new PostsAdapter(mPostsList, view.getContext(), getActivity(), mmBottomSheetDialog, statsheetView, false);
         mPostsRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mPostsRecyclerView.setHasFixedSize(true);
         mPostsRecyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(),DividerItemDecoration.VERTICAL));
-        mPostsRecyclerView.setAdapter(mAdapter_v19);
+        mPostsRecyclerView.setAdapter(mAdapter);
 
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
+        refreshLayout.setOnRefreshListener(() -> {
 
-                mPostsList.clear();
-                mAdapter_v19.notifyDataSetChanged();
-                getAllPosts();
+            mPostsList.clear();
+            mAdapter.notifyDataSetChanged();
+            getAllPosts();
 
-            }
         });
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPostsList.clear();
+        mAdapter.notifyDataSetChanged();
         getAllPosts();
     }
 
     private void getAllPosts() {
 
-        System.out.println("Fetching posts");
+        mPostsList.clear();
+        mAdapter.notifyDataSetChanged();
 
         getView().findViewById(R.id.default_item).setVisibility(View.GONE);
         refreshLayout.setRefreshing(true);
@@ -115,68 +109,60 @@ public class HomeFragment extends Fragment {
         mFirestore.collection("Posts")
                 .orderBy("timestamp", Query.Direction.DESCENDING)
                 .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                .addOnSuccessListener(queryDocumentSnapshots -> {
 
-                        if (!queryDocumentSnapshots.isEmpty()) {
+                    if (!queryDocumentSnapshots.isEmpty()) {
 
-                            for (final DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
+                        for (final DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
 
-                                if (doc.getType() == DocumentChange.Type.ADDED) {
+                            if (doc.getType() == DocumentChange.Type.ADDED) {
 
-                                    mFirestore.collection("Users")
-                                            .document(currentUser.getUid())
-                                            .collection("Friends")
-                                            .get()
-                                            .addOnSuccessListener(querySnapshot -> {
+                                mFirestore.collection("Users")
+                                        .document(currentUser.getUid())
+                                        .collection("Friends")
+                                        .get()
+                                        .addOnSuccessListener(querySnapshot -> {
 
-                                                if (!querySnapshot.isEmpty()) {
+                                            if (!querySnapshot.isEmpty()) {
 
-                                                    for (DocumentChange documentChange : querySnapshot.getDocumentChanges()) {
-                                                        if (documentChange.getDocument().getId().equals(doc.getDocument().get("userId"))) {
+                                                for (DocumentChange documentChange : querySnapshot.getDocumentChanges()) {
+                                                    if (documentChange.getDocument().getId().equals(doc.getDocument().get("userId"))) {
 
-                                                            Post post = doc.getDocument().toObject(Post.class).withId(doc.getDocument().getId());
-                                                            mPostsList.add(post);
-                                                            refreshLayout.setRefreshing(false);
-                                                            mAdapter_v19.notifyDataSetChanged();
+                                                        Post post = doc.getDocument().toObject(Post.class).withId(doc.getDocument().getId());
+                                                        mPostsList.add(post);
+                                                        refreshLayout.setRefreshing(false);
+                                                        mAdapter.notifyDataSetChanged();
 
-                                                        }
                                                     }
-
-                                                } else {
-
-                                                    getCurrentUsersPosts();
-
                                                 }
 
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    refreshLayout.setRefreshing(false);
-                                                    //Toasty.error(getView().getContext(), "Some technical error occurred", Toasty.LENGTH_SHORT,true).show();
-                                                    Log.w("Error", "listen:error", e);
-                                                }
-                                            });
+                                            } else {
 
-                                }
+                                                getCurrentUsersPosts();
+
+                                            }
+
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            refreshLayout.setRefreshing(false);
+                                            Log.w("Error", "listen:error", e);
+                                        });
+
                             }
-
-
-                        }else{
-                            refreshLayout.setRefreshing(false);
-                            getView().findViewById(R.id.default_item).setVisibility(View.VISIBLE);
-
                         }
 
+
+                    }else{
+                        refreshLayout.setRefreshing(false);
+                        getView().findViewById(R.id.default_item).setVisibility(View.VISIBLE);
+
                     }
+
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         refreshLayout.setRefreshing(false);
-                        //Toasty.error(getView().getContext(), "Some technical error occurred", Toasty.LENGTH_SHORT,true).show();
                         Log.w("Error", "listen:error", e);
                     }
                 });
@@ -185,39 +171,35 @@ public class HomeFragment extends Fragment {
 
     private void getCurrentUsersPosts() {
 
+        mPostsList.clear();
+        mAdapter.notifyDataSetChanged();
+
         mFirestore.collection("Posts")
                 .orderBy("timestamp", Query.Direction.DESCENDING)
                 .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                .addOnSuccessListener(queryDocumentSnapshots -> {
 
-                        if(queryDocumentSnapshots.isEmpty()){
+                    if(queryDocumentSnapshots.isEmpty()){
 
+                        refreshLayout.setRefreshing(false);
+                        getView().findViewById(R.id.default_item).setVisibility(View.VISIBLE);
+
+                    }else{
+
+                        for (DocumentChange documentChange : queryDocumentSnapshots.getDocumentChanges()) {
+                            Post post = documentChange.getDocument().toObject(Post.class).withId(documentChange.getDocument().getId());
+                            mPostsList.add(post);
                             refreshLayout.setRefreshing(false);
+                            mAdapter.notifyDataSetChanged();
+                        }
+
+                        if (mPostsList.isEmpty()) {
                             getView().findViewById(R.id.default_item).setVisibility(View.VISIBLE);
-
-                        }else{
-
-                            for (DocumentChange documentChange : queryDocumentSnapshots.getDocumentChanges()) {
-                                if (documentChange.getDocument().getString("userId").equals(mAuth.getCurrentUser().getUid())) {
-
-                                    Post post = documentChange.getDocument().toObject(Post.class).withId(documentChange.getDocument().getId());
-                                    mPostsList.add(post);
-                                    refreshLayout.setRefreshing(false);
-                                    mAdapter_v19.notifyDataSetChanged();
-
-                                }
-                            }
-
-                            if (mPostsList.isEmpty()) {
-                                getView().findViewById(R.id.default_item).setVisibility(View.VISIBLE);
-                                refreshLayout.setRefreshing(false);
-                            }
-
+                            refreshLayout.setRefreshing(false);
                         }
 
                     }
+
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
