@@ -4,23 +4,19 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Environment;
-import android.os.Handler;
 
 import android.text.Html;
 import android.text.TextUtils;
@@ -34,8 +30,6 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -55,26 +49,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.grantland.widget.AutofitTextView;
@@ -89,16 +73,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     private Activity activity;
     private static final DecelerateInterpolator DECCELERATE_INTERPOLATOR = new DecelerateInterpolator();
     private static final AccelerateInterpolator ACCELERATE_INTERPOLATOR = new AccelerateInterpolator();
-    private BottomSheetDialog mmBottomSheetDialog;
-    private View statsheetView;
     private boolean forComment;
 
     public PostsAdapter(List<Post> postList, Context context, Activity activity, BottomSheetDialog mmBottomSheetDialog, View statsheetView, boolean forComment) {
         this.postList = postList;
         this.activity=activity;
         this.context = context;
-        this.mmBottomSheetDialog=mmBottomSheetDialog;
-        this.statsheetView=statsheetView;
         this.forComment=forComment;
     }
 
@@ -156,84 +136,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                                 .addOnSuccessListener(aVoid -> {
 
 
-                                    if(!TextUtils.isEmpty(postList.get(holder.getAdapterPosition()).getImage_url_0())) {
-                                        StorageReference img = FirebaseStorage.getInstance()
-                                                .getReferenceFromUrl(postList.get(holder.getAdapterPosition()).getImage_url_0());
-                                        img.delete().addOnSuccessListener(aVoid1 ->
-                                        {
-                                            pdialog.dismiss();
-                                            Log.i("Post Image","deleted");
-                                        })
-                                                .addOnFailureListener(e -> Log.e("Post Image",e.getLocalizedMessage()));
-                                    }
-
-                                    pdialog.show();
-                                    if(!TextUtils.isEmpty(postList.get(holder.getAdapterPosition()).getImage_url_1())) {
-                                        StorageReference img = FirebaseStorage.getInstance()
-                                                .getReferenceFromUrl(postList.get(holder.getAdapterPosition()).getImage_url_1());
-                                        img.delete().addOnSuccessListener(aVoid12 -> {
-                                            pdialog.dismiss();
-                                            Log.i("Post Image","deleted");
-                                        })
-                                                .addOnFailureListener(e -> Log.e("Post Image",e.getLocalizedMessage()));
-                                    }
-
-                                    pdialog.show();
-                                    if(!TextUtils.isEmpty(postList.get(holder.getAdapterPosition()).getImage_url_2())) {
-                                        StorageReference img = FirebaseStorage.getInstance()
-                                                .getReferenceFromUrl(postList.get(holder.getAdapterPosition()).getImage_url_2());
-                                        img.delete().addOnSuccessListener(aVoid13 -> {
-                                            pdialog.dismiss();
-                                            Log.i("Post Image","deleted");
-                                        })
-                                                .addOnFailureListener(e -> Log.e("Post Image",e.getLocalizedMessage()));
-                                    }
-
-                                    pdialog.show();
-                                    if(!TextUtils.isEmpty(postList.get(holder.getAdapterPosition()).getImage_url_3())) {
-                                        StorageReference img = FirebaseStorage.getInstance()
-                                                .getReferenceFromUrl(postList.get(holder.getAdapterPosition()).getImage_url_3());
-                                        img.delete().addOnSuccessListener(aVoid14 -> {
-                                            pdialog.dismiss();
-                                            Log.i("Post Image","deleted");
-                                        })
-                                                .addOnFailureListener(e -> Log.e("Post Image",e.getLocalizedMessage()));
-                                    }
-
-                                    pdialog.show();
-                                    if(!TextUtils.isEmpty(postList.get(holder.getAdapterPosition()).getImage_url_4())) {
-                                        StorageReference img = FirebaseStorage.getInstance()
-                                                .getReferenceFromUrl(postList.get(holder.getAdapterPosition()).getImage_url_4());
-                                        img.delete().addOnSuccessListener(aVoid15 -> {
-                                            pdialog.dismiss();
-                                            Log.i("Post Image","deleted");
-                                        })
-                                                .addOnFailureListener(e -> Log.e("Post Image",e.getLocalizedMessage()));
-                                    }
-
-                                    pdialog.show();
-                                    if(!TextUtils.isEmpty(postList.get(holder.getAdapterPosition()).getImage_url_5())) {
-                                        StorageReference img = FirebaseStorage.getInstance()
-                                                .getReferenceFromUrl(postList.get(holder.getAdapterPosition()).getImage_url_5());
-                                        img.delete().addOnSuccessListener(aVoid16 -> {
-                                            pdialog.dismiss();
-                                            Log.i("Post Image","deleted");
-                                        })
-                                                .addOnFailureListener(e -> Log.e("Post Image",e.getLocalizedMessage()));
-                                    }
-
-                                    pdialog.show();
-                                    if(!TextUtils.isEmpty(postList.get(holder.getAdapterPosition()).getImage_url_6())) {
-                                        StorageReference img = FirebaseStorage.getInstance()
-                                                .getReferenceFromUrl(postList.get(holder.getAdapterPosition()).getImage_url_6());
-                                        img.delete().addOnSuccessListener(aVoid17 -> {
-                                            pdialog.dismiss();
-                                            Log.i("Post Image","deleted");
-                                        })
-                                                .addOnFailureListener(e -> Log.e("Post Image",e.getLocalizedMessage()));
-                                    }
-
-                                   // Toasty.success(context, "Post deleted", Toasty.LENGTH_SHORT,true).show();
                                     postList.remove(holder.getAdapterPosition());
                                     notifyItemRemoved(holder.getAdapterPosition());
                                     notifyDataSetChanged();
@@ -362,7 +264,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 dir.mkdirs();
             }
 
-            File file=new File(dir,"HIFY_POST_"+System.currentTimeMillis()+".png");
+            File file=new File(dir,"Post"+System.currentTimeMillis()+".png");
             if(file.exists()){
                 file.delete();
             }else{
@@ -378,7 +280,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
         } catch (IOException e) {
             e.printStackTrace();
-           // Toasty.error(context,"Sharing failed",Toasty.LENGTH_SHORT,true).show();
             return null;
         }
     }
@@ -407,8 +308,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         if(!TextUtils.isEmpty(postList.get(pos).getUsername())) {
             holder.user_name.setText(postList.get(pos).getUsername());
         }
-
-
 
         Glide.with(context)
                 .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.placeholder))
@@ -447,13 +346,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
         } else if(postList.get(pos).getImage_count()==1) {
 
-            //ArrayList<MultipleImage> multipleImages=new ArrayList<>();
-            //PostPhotosAdapter photosAdapter=new PostPhotosAdapter(context,activity,multipleImages,false,postList.get(holder.getAdapterPosition()).postId,holder.like_btn,postList.get(holder.getAdapterPosition()).getUserId());
-            //setUrls(holder,multipleImages,photosAdapter);
-
-            //holder.pager.setAdapter(photosAdapter);
             holder.indicator_holder.setVisibility(View.GONE);
-            //photosAdapter.notifyDataSetChanged();
 
             holder.pager_layout.setVisibility(View.VISIBLE);
             holder.post_text.setVisibility(View.GONE);
@@ -461,22 +354,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             String desc = "<b>" + postList.get(pos).getUsername() + "</b> : " + postList.get(pos).getDescription();
             holder.post_desc.setText(Html.fromHtml(desc));
 
-            holder.share_btn.setOnFavoriteAnimationEndListener((buttonView, favorite) ->
-                    new DownloadTask(context,holder).execute(stringToURL(postList.get(holder.getAdapterPosition()).getImage_url_0())));
-
-
         }else if(postList.get(pos).getImage_count()>0) {
 
-            //ArrayList<MultipleImage> multipleImages=new ArrayList<>();
-            //PostPhotosAdapter photosAdapter=new PostPhotosAdapter(context,activity,multipleImages,false,postList.get(holder.getAdapterPosition()).postId,holder.like_btn,postList.get(holder.getAdapterPosition()).getUserId());
-            //setUrls(holder,multipleImages,photosAdapter);
-
-            //holder.pager.setAdapter(photosAdapter);
-            //photosAdapter.notifyDataSetChanged();
             holder.indicator2.setDotsClickable(true);
             holder.indicator2.setViewPager(holder.pager);
-
-            //autoStartSlide(holder,multipleImages.size());
 
             holder.pager_layout.setVisibility(View.VISIBLE);
             holder.indicator_holder.setVisibility(View.VISIBLE);
@@ -484,35 +365,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             holder.post_desc.setVisibility(View.VISIBLE);
             String desc = "<b>" + postList.get(pos).getUsername() + "</b> : " + postList.get(pos).getDescription();
             holder.post_desc.setText(Html.fromHtml(desc));
-
-            /*holder.share_btn.setOnFavoriteAnimationEndListener((buttonView, favorite) ->
-                    new DownloadTask(context,holder).execute(stringToURL(multipleImages.get(holder.pager.getCurrentItem()).getUrl())));
-*/
         }
-    }
-
-    private void autoStartSlide(final ViewHolder holder,final int LAST) {
-
-
-        final Handler handler=new Handler();
-        final Runnable slide=new Runnable() {
-            @Override
-            public void run() {
-                if(holder.pager.getCurrentItem()==LAST){
-                    holder.pager.setCurrentItem(0,true);
-                    return;
-                }
-                holder.pager.setCurrentItem(holder.pager.getCurrentItem()+1,true);
-            }
-        };
-        Timer slideTimer=new Timer();
-        slideTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(slide);
-            }
-        },3000,3000);
-
     }
 
     private void enableDoubleTap(final ViewHolder holder) {
@@ -544,7 +397,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
     private void getLikeandFav(final ViewHolder holder) {
 
-        //forLiked
         mFirestore.collection("Posts")
                 .document(postList.get(holder.getAdapterPosition()).postId)
                 .collection("Liked_Users")
@@ -583,26 +435,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                                                     .document(mCurrentUser.getUid())
                                                     .set(likeMap)
                                                     .addOnSuccessListener(aVoid -> {
-
-                                                        /*UserHelper userHelper=new UserHelper(context);
-                                                        Cursor rs = userHelper.getData(1);
-                                                        rs.moveToFirst();
-
-                                                        String image = rs.getString(rs.getColumnIndex(UserHelper.CONTACTS_COLUMN_IMAGE));
-                                                        String username = rs.getString(rs.getColumnIndex(UserHelper.CONTACTS_COLUMN_USERNAME));
-*/
-                                                        /*if (!rs.isClosed()) {
-                                                            rs.close();
-                                                        }
-
-                                                        addToNotification(postList.get(holder.getAdapterPosition()).getUserId(),
-                                                                mCurrentUser.getUid(),
-                                                                image,
-                                                                username,
-                                                                "Liked your post",
-                                                                postList.get(holder.getAdapterPosition()).postId,
-                                                                "like");
-*/
 
                                                     })
                                                     .addOnFailureListener(e -> Log.e("Error like", e.getMessage()));
@@ -652,7 +484,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                     }
                 });
 
-        //forFavourite
         mFirestore.collection("Posts")
                 .document(postList.get(holder.getAdapterPosition()).postId)
                 .collection("Saved_Users")
@@ -705,42 +536,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                                                             postMap.put("description", postList.get(holder.getAdapterPosition()).getDescription());
                                                             postMap.put("color", postList.get(holder.getAdapterPosition()).getColor());
 
-                                                            try {
-                                                                postMap.put("image_url_0", postList.get(holder.getAdapterPosition()).getImage_url_0());
-                                                            } catch (Exception e) {
-                                                                e.printStackTrace();
-                                                            }
-                                                            try {
-                                                                postMap.put("image_url_1", postList.get(holder.getAdapterPosition()).getImage_url_1());
-                                                            } catch (Exception e) {
-                                                                e.printStackTrace();
-                                                            }
-                                                            try {
-                                                                postMap.put("image_url_2", postList.get(holder.getAdapterPosition()).getImage_url_2());
-                                                            } catch (Exception e) {
-                                                                e.printStackTrace();
-                                                            }
-                                                            try {
-                                                                postMap.put("image_url_3", postList.get(holder.getAdapterPosition()).getImage_url_3());
-                                                            } catch (Exception e) {
-                                                                e.printStackTrace();
-                                                            }
-                                                            try {
-                                                                postMap.put("image_url_4", postList.get(holder.getAdapterPosition()).getImage_url_4());
-                                                            } catch (Exception e) {
-                                                                e.printStackTrace();
-                                                            }
-                                                            try {
-                                                                postMap.put("image_url_5", postList.get(holder.getAdapterPosition()).getImage_url_5());
-                                                            } catch (Exception e) {
-                                                                e.printStackTrace();
-                                                            }
-                                                            try {
-                                                                postMap.put("image_url_6", postList.get(holder.getAdapterPosition()).getImage_url_6());
-                                                            } catch (Exception e) {
-                                                                e.printStackTrace();
-                                                            }
-
                                                             mFirestore.collection("Users")
                                                                     .document(mCurrentUser.getUid())
                                                                     .collection("Saved_Posts")
@@ -749,7 +544,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                         @Override
                                                                         public void onSuccess(Void aVoid) {
-                                                                            // Toast.makeText(context, "Added to Saved_Posts, post '" + postList.get(holder.getAdapterPosition()).postId, Toast.LENGTH_SHORT).show();
                                                                         }
                                                                     }).addOnFailureListener(new OnFailureListener() {
                                                                 @Override
@@ -780,7 +574,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                                                     .document(postList.get(holder.getAdapterPosition()).postId)
                                                     .collection("Saved_Users")
                                                     .document(mCurrentUser.getUid())
-                                                    //.set(favMap)
                                                     .delete()
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
@@ -794,7 +587,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                         @Override
                                                                         public void onSuccess(Void aVoid) {
-                                                                            // Toast.makeText(context, "Removed from Saved_Posts, post '" + postList.get(holder.getAdapterPosition()).postId, Toast.LENGTH_SHORT).show();
                                                                         }
                                                                     })
                                                                     .addOnFailureListener(new OnFailureListener() {
@@ -828,110 +620,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                         Log.e("Error Fav", e.getMessage());
                     }
                 });
-
-    }
-
-    /*private void setmImageHolderBg(String color, FrameLayout mImageholder) {
-        switch (Integer.parseInt(color)) {
-            case 1:
-                mImageholder.setBackgroundResource(R.drawable.gradient_1);
-                break;
-            case 2:
-                mImageholder.setBackgroundResource(R.drawable.gradient_2);
-                break;
-            case 3:
-                mImageholder.setBackgroundResource(R.drawable.gradient_3);
-                break;
-            case 4:
-                mImageholder.setBackgroundResource(R.drawable.gradient_4);
-                break;
-            case 5:
-                mImageholder.setBackgroundResource(R.drawable.gradient_5);
-                break;
-            case 6:
-                mImageholder.setBackgroundResource(R.drawable.gradient_6);
-                break;
-            case 7:
-                mImageholder.setBackgroundResource(R.drawable.gradient_7);
-                break;
-            case 8:
-                mImageholder.setBackgroundResource(R.drawable.gradient_8);
-                break;
-            case 9:
-                mImageholder.setBackgroundResource(R.drawable.gradient_9);
-                break;
-            case 10:
-                mImageholder.setBackgroundResource(R.drawable.gradient_10);
-                break;
-            case 11:
-                mImageholder.setBackgroundResource(R.drawable.gradient_11);
-                break;
-            case 12:
-                mImageholder.setBackgroundResource(R.drawable.gradient_12);
-                break;
-            case 13:
-                mImageholder.setBackgroundResource(R.drawable.gradient_13);
-                break;
-            case 14:
-                mImageholder.setBackgroundResource(R.drawable.gradient_14);
-                break;
-            case 15:
-                mImageholder.setBackgroundResource(R.drawable.gradient_15);
-                break;
-            case 16:
-                mImageholder.setBackgroundResource(R.drawable.gradient_16);
-                break;
-            case 17:
-                mImageholder.setBackgroundResource(R.drawable.gradient_17);
-                break;
-            case 18:
-                mImageholder.setBackgroundResource(R.drawable.gradient_18);
-                break;
-            case 19:
-                mImageholder.setBackgroundResource(R.drawable.gradient_19);
-                break;
-        }
-
-    }*/
-
-    private void addToNotification(String admin_id,String user_id,String profile,String username,String message,String post_id,String type){
-
-        Map<String,Object> map=new HashMap<>();
-        map.put("id",user_id);
-        map.put("username",username);
-        map.put("image",profile);
-        map.put("message",message);
-        map.put("timestamp",String.valueOf(System.currentTimeMillis()));
-        map.put("type",type);
-        map.put("action_id",post_id);
-
-        if (!admin_id.equals(user_id)) {
-
-            mFirestore.collection("Users")
-                    .document(admin_id)
-                    .collection("Info_Notifications")
-                    .whereEqualTo("id",user_id)
-                    .whereEqualTo("action_id",post_id)
-                    .whereEqualTo("type",type)
-                    .get()
-                    .addOnSuccessListener(queryDocumentSnapshots -> {
-
-                        if(queryDocumentSnapshots.isEmpty()){
-
-                            mFirestore.collection("Users")
-                                    .document(admin_id)
-                                    .collection("Info_Notifications")
-                                    .add(map)
-                                    .addOnSuccessListener(documentReference -> {
-                                    })
-                                    .addOnFailureListener(e -> Log.e("Error", e.getLocalizedMessage()));
-
-                        }
-
-                    })
-                    .addOnFailureListener(Throwable::printStackTrace);
-
-        }
 
     }
 
@@ -1040,96 +728,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private class DownloadTask extends AsyncTask<URL,Integer,List<Bitmap>> {
-
-        ProgressDialog mProgressDialog;
-        ViewHolder holder;
-        Context context;
-
-        public DownloadTask(Context context,ViewHolder holder) {
-            this.context = context;
-            this.holder = holder;
-        }
-
-        protected void onPreExecute(){
-            mProgressDialog=new ProgressDialog(context);
-            mProgressDialog.setIndeterminate(false);
-            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            mProgressDialog.setTitle("Please wait");
-            mProgressDialog.setMessage("We are processing the image for sharing...");
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.show();
-            mProgressDialog.setProgress(0);
-        }
-
-        protected List<Bitmap> doInBackground(URL...urls){
-            int count = urls.length;
-            HttpURLConnection connection = null;
-            List<Bitmap> bitmaps = new ArrayList<>();
-
-            for(int i=0;i<count;i++){
-                URL currentURL = urls[i];
-                try{
-                    connection = (HttpURLConnection) currentURL.openConnection();
-                    connection.connect();
-                    InputStream inputStream = connection.getInputStream();
-                    BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
-                    Bitmap bmp = BitmapFactory.decodeStream(bufferedInputStream);
-                    bitmaps.add(bmp);
-                    publishProgress((int) (((i+1) / (float) count) * 100));
-                    if(isCancelled()){
-                        break;
-                    }
-
-                }catch(IOException e){
-                    e.printStackTrace();
-                }finally{
-                    connection.disconnect();
-                }
-            }
-            return bitmaps;
-        }
-
-        protected void onProgressUpdate(Integer... progress){
-            mProgressDialog.setProgress(progress[0]);
-        }
-
-        // On AsyncTask cancelled
-        protected void onCancelled(){
-        }
-
-        protected void onPostExecute(List<Bitmap> result){
-            mProgressDialog.dismiss();
-            for(int i=0;i<result.size();i++){
-                Bitmap bitmap = result.get(i);
-
-                Uri imageInternalUri = getBitmapUri(bitmap,postList.get(holder.getAdapterPosition()).getName());
-
-                try {
-                    Intent intent = new Intent(Intent.ACTION_SEND)
-                            .setType("image/*");
-                    intent.putExtra(Intent.EXTRA_STREAM, imageInternalUri);
-                    context.startActivity(Intent.createChooser(intent, "Share using..."));
-                } catch (Exception e) {
-                    //Toasty.error(context,"Sharing failed", Toasty.LENGTH_SHORT,true).show();
-                    e.printStackTrace();
-                }
-
-            }
-        }
-    }
-
-    private URL stringToURL(String urlString){
-        try{
-            URL url = new URL(urlString);
-            return url;
-        }catch(MalformedURLException e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     private void setmImageHolderBg(String color, FrameLayout mImageholder) {
         switch (Integer.parseInt(color)) {
             case 1:
@@ -1192,8 +790,4 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         }
 
     }
-
-
-
-
 }

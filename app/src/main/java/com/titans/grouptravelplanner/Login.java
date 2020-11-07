@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -51,6 +52,7 @@ import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
 import io.github.inflationx.viewpump.ViewPump;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
+
 public class Login extends AppCompatActivity {
 
     private static final String TAG = Login.class.getSimpleName();
@@ -58,6 +60,7 @@ public class Login extends AppCompatActivity {
     private EditText email,password;
     private Button login,register;
     private FirebaseAuth mAuth;
+
     private FirebaseFirestore mFirestore;
     private UserHelper userHelper;
     private ProgressDialog mDialog;
@@ -96,7 +99,6 @@ public class Login extends AppCompatActivity {
                     }
                 })
                 .check();
-
     }
 
     @Override
@@ -113,6 +115,7 @@ public class Login extends AppCompatActivity {
                 .build());
 
         setContentView(R.layout.activity_login);
+
 
         activity = this;
         mAuth=FirebaseAuth.getInstance();
@@ -143,11 +146,14 @@ public class Login extends AppCompatActivity {
     }
 
 
+
     public void performLogin() {
+
 
         final String email_, pass_;
         email_ = email.getText().toString();
         pass_ = password.getText().toString();
+
 
         if (!TextUtils.isEmpty(email_) && !TextUtils.isEmpty(pass_)) {
             mDialog.show();
@@ -160,6 +166,7 @@ public class Login extends AppCompatActivity {
                         Log.i(TAG, "Login Successful, continue to email verified");
 
                         if (task.getResult().getUser().isEmailVerified()) {
+
 
                             Log.i(TAG, "Email is verified Successful, continue to get token");
                             FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -175,6 +182,7 @@ public class Login extends AppCompatActivity {
 
                                     Log.i(TAG, "Get Token Listener, Token ID (token_id): " + token_id);
 
+
                                     final String current_id = task.getResult().getUser().getUid();
 
 
@@ -186,6 +194,7 @@ public class Login extends AppCompatActivity {
 
                                             final Map<String, Object> tokenMap = new HashMap<>();
                                             tokenMap.put("token_ids", FieldValue.arrayUnion(token_id));
+
 
                                             mFirestore.collection("Users")
                                                     .document(current_id)
@@ -282,6 +291,7 @@ public class Login extends AppCompatActivity {
                         } else {
                             Toasty.error(Login.this, "Error: " + task.getException().getMessage(), Toasty.LENGTH_SHORT,true).show();
                             mDialog.dismiss();
+
                         }
 
                     }
