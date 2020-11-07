@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/colorPrimaryDarkk</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkk</item>
         <item name="colorAccent">@color/colorAccentt</item>
+        <item name="dialogSheetAccent">@color/colorAccentt</item>
         <item name="actionBarPopupTheme">@style/AppTheme.PopupOverlay</item>
     </style>
 
@@ -11,6 +12,7 @@
         <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkk</item>
         <item name="colorAccent">@color/colorAccentt</item>
+        <item name="dialogSheetAccent">@color/colorAccentt</item>
         <item name="actionBarPopupTheme">@style/AppTheme.PopupOverlay</item>
     </style>
 
@@ -18,12 +20,14 @@
         <item name="colorPrimary">@color/colorAccentt</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkk</item>
         <item name="colorAccent">@color/colorPrimary</item>
+        <item name="dialogSheetAccent">@color/colorAccentt</item>
     </style>
 
 
     <style name="LoginAppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkk</item>
+        <item name="dialogSheetAccent">@color/colorAccentt</item>
         <item name="colorAccent">@color/colorAccentt</item>
     </style>
 
@@ -31,6 +35,7 @@
     <style name="UpdateAppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimaryDarkk</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkk</item>
+        <item name="dialogSheetAccent">@color/colorAccentt</item>
         <item name="colorAccent">@color/colorAccentt</item>
     </style>
 
@@ -42,6 +47,8 @@
         <item name="colorPrimary">@color/colorPrimaryDarkk</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkk</item>
         <item name="colorAccent">@color/colorAccentt</item>
+        <item name="android:windowBackground">@drawable/splash_window_bg</item>
+        <item name="dialogSheetAccent">@color/colorAccentt</item>
     </style>
 
 </resources>
