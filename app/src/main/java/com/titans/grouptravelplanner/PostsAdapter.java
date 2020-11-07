@@ -156,84 +156,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                                 .addOnSuccessListener(aVoid -> {
 
 
-                                    if(!TextUtils.isEmpty(postList.get(holder.getAdapterPosition()).getImage_url_0())) {
-                                        StorageReference img = FirebaseStorage.getInstance()
-                                                .getReferenceFromUrl(postList.get(holder.getAdapterPosition()).getImage_url_0());
-                                        img.delete().addOnSuccessListener(aVoid1 ->
-                                        {
-                                            pdialog.dismiss();
-                                            Log.i("Post Image","deleted");
-                                        })
-                                                .addOnFailureListener(e -> Log.e("Post Image",e.getLocalizedMessage()));
-                                    }
-
-                                    pdialog.show();
-                                    if(!TextUtils.isEmpty(postList.get(holder.getAdapterPosition()).getImage_url_1())) {
-                                        StorageReference img = FirebaseStorage.getInstance()
-                                                .getReferenceFromUrl(postList.get(holder.getAdapterPosition()).getImage_url_1());
-                                        img.delete().addOnSuccessListener(aVoid12 -> {
-                                            pdialog.dismiss();
-                                            Log.i("Post Image","deleted");
-                                        })
-                                                .addOnFailureListener(e -> Log.e("Post Image",e.getLocalizedMessage()));
-                                    }
-
-                                    pdialog.show();
-                                    if(!TextUtils.isEmpty(postList.get(holder.getAdapterPosition()).getImage_url_2())) {
-                                        StorageReference img = FirebaseStorage.getInstance()
-                                                .getReferenceFromUrl(postList.get(holder.getAdapterPosition()).getImage_url_2());
-                                        img.delete().addOnSuccessListener(aVoid13 -> {
-                                            pdialog.dismiss();
-                                            Log.i("Post Image","deleted");
-                                        })
-                                                .addOnFailureListener(e -> Log.e("Post Image",e.getLocalizedMessage()));
-                                    }
-
-                                    pdialog.show();
-                                    if(!TextUtils.isEmpty(postList.get(holder.getAdapterPosition()).getImage_url_3())) {
-                                        StorageReference img = FirebaseStorage.getInstance()
-                                                .getReferenceFromUrl(postList.get(holder.getAdapterPosition()).getImage_url_3());
-                                        img.delete().addOnSuccessListener(aVoid14 -> {
-                                            pdialog.dismiss();
-                                            Log.i("Post Image","deleted");
-                                        })
-                                                .addOnFailureListener(e -> Log.e("Post Image",e.getLocalizedMessage()));
-                                    }
-
-                                    pdialog.show();
-                                    if(!TextUtils.isEmpty(postList.get(holder.getAdapterPosition()).getImage_url_4())) {
-                                        StorageReference img = FirebaseStorage.getInstance()
-                                                .getReferenceFromUrl(postList.get(holder.getAdapterPosition()).getImage_url_4());
-                                        img.delete().addOnSuccessListener(aVoid15 -> {
-                                            pdialog.dismiss();
-                                            Log.i("Post Image","deleted");
-                                        })
-                                                .addOnFailureListener(e -> Log.e("Post Image",e.getLocalizedMessage()));
-                                    }
-
-                                    pdialog.show();
-                                    if(!TextUtils.isEmpty(postList.get(holder.getAdapterPosition()).getImage_url_5())) {
-                                        StorageReference img = FirebaseStorage.getInstance()
-                                                .getReferenceFromUrl(postList.get(holder.getAdapterPosition()).getImage_url_5());
-                                        img.delete().addOnSuccessListener(aVoid16 -> {
-                                            pdialog.dismiss();
-                                            Log.i("Post Image","deleted");
-                                        })
-                                                .addOnFailureListener(e -> Log.e("Post Image",e.getLocalizedMessage()));
-                                    }
-
-                                    pdialog.show();
-                                    if(!TextUtils.isEmpty(postList.get(holder.getAdapterPosition()).getImage_url_6())) {
-                                        StorageReference img = FirebaseStorage.getInstance()
-                                                .getReferenceFromUrl(postList.get(holder.getAdapterPosition()).getImage_url_6());
-                                        img.delete().addOnSuccessListener(aVoid17 -> {
-                                            pdialog.dismiss();
-                                            Log.i("Post Image","deleted");
-                                        })
-                                                .addOnFailureListener(e -> Log.e("Post Image",e.getLocalizedMessage()));
-                                    }
-
-                                   // Toasty.success(context, "Post deleted", Toasty.LENGTH_SHORT,true).show();
                                     postList.remove(holder.getAdapterPosition());
                                     notifyItemRemoved(holder.getAdapterPosition());
                                     notifyDataSetChanged();
@@ -460,10 +382,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             holder.post_desc.setVisibility(View.VISIBLE);
             String desc = "<b>" + postList.get(pos).getUsername() + "</b> : " + postList.get(pos).getDescription();
             holder.post_desc.setText(Html.fromHtml(desc));
-
-            holder.share_btn.setOnFavoriteAnimationEndListener((buttonView, favorite) ->
-                    new DownloadTask(context,holder).execute(stringToURL(postList.get(holder.getAdapterPosition()).getImage_url_0())));
-
 
         }else if(postList.get(pos).getImage_count()>0) {
 
@@ -704,42 +622,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                                                             postMap.put("image_count", postList.get(holder.getAdapterPosition()).getImage_count());
                                                             postMap.put("description", postList.get(holder.getAdapterPosition()).getDescription());
                                                             postMap.put("color", postList.get(holder.getAdapterPosition()).getColor());
-
-                                                            try {
-                                                                postMap.put("image_url_0", postList.get(holder.getAdapterPosition()).getImage_url_0());
-                                                            } catch (Exception e) {
-                                                                e.printStackTrace();
-                                                            }
-                                                            try {
-                                                                postMap.put("image_url_1", postList.get(holder.getAdapterPosition()).getImage_url_1());
-                                                            } catch (Exception e) {
-                                                                e.printStackTrace();
-                                                            }
-                                                            try {
-                                                                postMap.put("image_url_2", postList.get(holder.getAdapterPosition()).getImage_url_2());
-                                                            } catch (Exception e) {
-                                                                e.printStackTrace();
-                                                            }
-                                                            try {
-                                                                postMap.put("image_url_3", postList.get(holder.getAdapterPosition()).getImage_url_3());
-                                                            } catch (Exception e) {
-                                                                e.printStackTrace();
-                                                            }
-                                                            try {
-                                                                postMap.put("image_url_4", postList.get(holder.getAdapterPosition()).getImage_url_4());
-                                                            } catch (Exception e) {
-                                                                e.printStackTrace();
-                                                            }
-                                                            try {
-                                                                postMap.put("image_url_5", postList.get(holder.getAdapterPosition()).getImage_url_5());
-                                                            } catch (Exception e) {
-                                                                e.printStackTrace();
-                                                            }
-                                                            try {
-                                                                postMap.put("image_url_6", postList.get(holder.getAdapterPosition()).getImage_url_6());
-                                                            } catch (Exception e) {
-                                                                e.printStackTrace();
-                                                            }
 
                                                             mFirestore.collection("Users")
                                                                     .document(mCurrentUser.getUid())
