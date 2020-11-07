@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
     private View statsheetView;
     private BottomSheetDialog mmBottomSheetDialog;
     private SwipeRefreshLayout refreshLayout;
-    private PostsAdapter mAdapter_v19;
+    private PostsAdapter mAdapter;
 
     Button createPost;
 
@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         FirebaseApp.initializeApp(getActivity());
-        mAdapter_v19.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
 
     }
 
@@ -84,19 +84,19 @@ public class HomeFragment extends Fragment {
 
         mPostsList = new ArrayList<>();
 
-        mAdapter_v19 = new PostsAdapter(mPostsList, view.getContext(), getActivity(), mmBottomSheetDialog, statsheetView, false);
+        mAdapter = new PostsAdapter(mPostsList, view.getContext(), getActivity(), mmBottomSheetDialog, statsheetView, false);
         mPostsRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mPostsRecyclerView.setHasFixedSize(true);
         mPostsRecyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(),DividerItemDecoration.VERTICAL));
-        mPostsRecyclerView.setAdapter(mAdapter_v19);
+        mPostsRecyclerView.setAdapter(mAdapter);
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 
                 mPostsList.clear();
-                mAdapter_v19.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
                 getAllPosts();
 
             }
@@ -139,7 +139,7 @@ public class HomeFragment extends Fragment {
                                                             Post post = doc.getDocument().toObject(Post.class).withId(doc.getDocument().getId());
                                                             mPostsList.add(post);
                                                             refreshLayout.setRefreshing(false);
-                                                            mAdapter_v19.notifyDataSetChanged();
+                                                            mAdapter.notifyDataSetChanged();
 
                                                         }
                                                     }
@@ -200,14 +200,10 @@ public class HomeFragment extends Fragment {
                         }else{
 
                             for (DocumentChange documentChange : queryDocumentSnapshots.getDocumentChanges()) {
-                                if (documentChange.getDocument().getString("userId").equals(mAuth.getCurrentUser().getUid())) {
-
-                                    Post post = documentChange.getDocument().toObject(Post.class).withId(documentChange.getDocument().getId());
-                                    mPostsList.add(post);
-                                    refreshLayout.setRefreshing(false);
-                                    mAdapter_v19.notifyDataSetChanged();
-
-                                }
+                                Post post = documentChange.getDocument().toObject(Post.class).withId(documentChange.getDocument().getId());
+                                mPostsList.add(post);
+                                refreshLayout.setRefreshing(false);
+                                mAdapter.notifyDataSetChanged();
                             }
 
                             if (mPostsList.isEmpty()) {

@@ -300,7 +300,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
         } catch (IOException e) {
             e.printStackTrace();
-           // Toasty.error(context,"Sharing failed",Toasty.LENGTH_SHORT,true).show();
             return null;
         }
     }
@@ -369,13 +368,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
         } else if(postList.get(pos).getImage_count()==1) {
 
-            //ArrayList<MultipleImage> multipleImages=new ArrayList<>();
-            //PostPhotosAdapter photosAdapter=new PostPhotosAdapter(context,activity,multipleImages,false,postList.get(holder.getAdapterPosition()).postId,holder.like_btn,postList.get(holder.getAdapterPosition()).getUserId());
-            //setUrls(holder,multipleImages,photosAdapter);
-
-            //holder.pager.setAdapter(photosAdapter);
             holder.indicator_holder.setVisibility(View.GONE);
-            //photosAdapter.notifyDataSetChanged();
 
             holder.pager_layout.setVisibility(View.VISIBLE);
             holder.post_text.setVisibility(View.GONE);
@@ -385,16 +378,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
         }else if(postList.get(pos).getImage_count()>0) {
 
-            //ArrayList<MultipleImage> multipleImages=new ArrayList<>();
-            //PostPhotosAdapter photosAdapter=new PostPhotosAdapter(context,activity,multipleImages,false,postList.get(holder.getAdapterPosition()).postId,holder.like_btn,postList.get(holder.getAdapterPosition()).getUserId());
-            //setUrls(holder,multipleImages,photosAdapter);
-
-            //holder.pager.setAdapter(photosAdapter);
-            //photosAdapter.notifyDataSetChanged();
             holder.indicator2.setDotsClickable(true);
             holder.indicator2.setViewPager(holder.pager);
-
-            //autoStartSlide(holder,multipleImages.size());
 
             holder.pager_layout.setVisibility(View.VISIBLE);
             holder.indicator_holder.setVisibility(View.VISIBLE);
@@ -402,10 +387,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             holder.post_desc.setVisibility(View.VISIBLE);
             String desc = "<b>" + postList.get(pos).getUsername() + "</b> : " + postList.get(pos).getDescription();
             holder.post_desc.setText(Html.fromHtml(desc));
-
-            /*holder.share_btn.setOnFavoriteAnimationEndListener((buttonView, favorite) ->
-                    new DownloadTask(context,holder).execute(stringToURL(multipleImages.get(holder.pager.getCurrentItem()).getUrl())));
-*/
         }
     }
 
@@ -462,7 +443,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
     private void getLikeandFav(final ViewHolder holder) {
 
-        //forLiked
         mFirestore.collection("Posts")
                 .document(postList.get(holder.getAdapterPosition()).postId)
                 .collection("Liked_Users")
@@ -501,26 +481,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                                                     .document(mCurrentUser.getUid())
                                                     .set(likeMap)
                                                     .addOnSuccessListener(aVoid -> {
-
-                                                        /*UserHelper userHelper=new UserHelper(context);
-                                                        Cursor rs = userHelper.getData(1);
-                                                        rs.moveToFirst();
-
-                                                        String image = rs.getString(rs.getColumnIndex(UserHelper.CONTACTS_COLUMN_IMAGE));
-                                                        String username = rs.getString(rs.getColumnIndex(UserHelper.CONTACTS_COLUMN_USERNAME));
-*/
-                                                        /*if (!rs.isClosed()) {
-                                                            rs.close();
-                                                        }
-
-                                                        addToNotification(postList.get(holder.getAdapterPosition()).getUserId(),
-                                                                mCurrentUser.getUid(),
-                                                                image,
-                                                                username,
-                                                                "Liked your post",
-                                                                postList.get(holder.getAdapterPosition()).postId,
-                                                                "like");
-*/
 
                                                     })
                                                     .addOnFailureListener(e -> Log.e("Error like", e.getMessage()));
@@ -631,7 +591,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                         @Override
                                                                         public void onSuccess(Void aVoid) {
-                                                                            // Toast.makeText(context, "Added to Saved_Posts, post '" + postList.get(holder.getAdapterPosition()).postId, Toast.LENGTH_SHORT).show();
                                                                         }
                                                                     }).addOnFailureListener(new OnFailureListener() {
                                                                 @Override
@@ -676,7 +635,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                         @Override
                                                                         public void onSuccess(Void aVoid) {
-                                                                            // Toast.makeText(context, "Removed from Saved_Posts, post '" + postList.get(holder.getAdapterPosition()).postId, Toast.LENGTH_SHORT).show();
                                                                         }
                                                                     })
                                                                     .addOnFailureListener(new OnFailureListener() {
@@ -712,69 +670,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 });
 
     }
-
-    /*private void setmImageHolderBg(String color, FrameLayout mImageholder) {
-        switch (Integer.parseInt(color)) {
-            case 1:
-                mImageholder.setBackgroundResource(R.drawable.gradient_1);
-                break;
-            case 2:
-                mImageholder.setBackgroundResource(R.drawable.gradient_2);
-                break;
-            case 3:
-                mImageholder.setBackgroundResource(R.drawable.gradient_3);
-                break;
-            case 4:
-                mImageholder.setBackgroundResource(R.drawable.gradient_4);
-                break;
-            case 5:
-                mImageholder.setBackgroundResource(R.drawable.gradient_5);
-                break;
-            case 6:
-                mImageholder.setBackgroundResource(R.drawable.gradient_6);
-                break;
-            case 7:
-                mImageholder.setBackgroundResource(R.drawable.gradient_7);
-                break;
-            case 8:
-                mImageholder.setBackgroundResource(R.drawable.gradient_8);
-                break;
-            case 9:
-                mImageholder.setBackgroundResource(R.drawable.gradient_9);
-                break;
-            case 10:
-                mImageholder.setBackgroundResource(R.drawable.gradient_10);
-                break;
-            case 11:
-                mImageholder.setBackgroundResource(R.drawable.gradient_11);
-                break;
-            case 12:
-                mImageholder.setBackgroundResource(R.drawable.gradient_12);
-                break;
-            case 13:
-                mImageholder.setBackgroundResource(R.drawable.gradient_13);
-                break;
-            case 14:
-                mImageholder.setBackgroundResource(R.drawable.gradient_14);
-                break;
-            case 15:
-                mImageholder.setBackgroundResource(R.drawable.gradient_15);
-                break;
-            case 16:
-                mImageholder.setBackgroundResource(R.drawable.gradient_16);
-                break;
-            case 17:
-                mImageholder.setBackgroundResource(R.drawable.gradient_17);
-                break;
-            case 18:
-                mImageholder.setBackgroundResource(R.drawable.gradient_18);
-                break;
-            case 19:
-                mImageholder.setBackgroundResource(R.drawable.gradient_19);
-                break;
-        }
-
-    }*/
 
     private void addToNotification(String admin_id,String user_id,String profile,String username,String message,String post_id,String type){
 
@@ -977,7 +872,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             mProgressDialog.setProgress(progress[0]);
         }
 
-        // On AsyncTask cancelled
         protected void onCancelled(){
         }
 
@@ -994,7 +888,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                     intent.putExtra(Intent.EXTRA_STREAM, imageInternalUri);
                     context.startActivity(Intent.createChooser(intent, "Share using..."));
                 } catch (Exception e) {
-                    //Toasty.error(context,"Sharing failed", Toasty.LENGTH_SHORT,true).show();
                     e.printStackTrace();
                 }
 

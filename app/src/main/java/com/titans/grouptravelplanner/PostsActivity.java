@@ -187,12 +187,12 @@ public class PostsActivity extends AppCompatActivity {
         System.out.println(text.getText().toString());
 
 
-        /*final ProgressDialog mDialog = new ProgressDialog(this);
+        final ProgressDialog mDialog = new ProgressDialog(this);
         mDialog.setMessage("Posting...");
         mDialog.setIndeterminate(true);
         mDialog.setCancelable(false);
         mDialog.setCanceledOnTouchOutside(false);
-        mDialog.show();*/
+        mDialog.show();
 
         System.out.println("Reached here");
 
