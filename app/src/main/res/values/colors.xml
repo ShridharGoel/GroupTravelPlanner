@@ -18,4 +18,9 @@
     <color name="colorBackground">#f9f9fa</color>
     <color name="colorTextSubtitle">#4e4e4e</color>
     <color name="colorTextTitle">#262626</color>
+
+    <color name="colorWhite">#FFF</color>
+    <color name="colorShadow">#cacacaca</color>
+    <color name="colorShadowLight">#cae6e4e4</color>
+    <color name="colorBlack">#333</color>
 </resources>

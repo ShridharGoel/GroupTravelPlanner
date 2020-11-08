@@ -73,6 +73,16 @@
         android:text="Create a new post"
         android:textColor="@color/white"
         android:backgroundTint="@color/colorAccentt"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="60dp"/>
+
+    <Button
+        android:id="@+id/find_friends"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Plan your trip"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/colorAccentt"
         android:layout_gravity="bottom" />
 
 </FrameLayout>

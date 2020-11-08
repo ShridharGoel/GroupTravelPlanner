@@ -37,7 +37,7 @@
     <string-array name="ld_activityScreenTitles">
         <item>Dashboard</item>
         <item>Forum</item>
-        <item>Flash Message</item>
+        <item>Messages</item>
         <item>Manage Friends</item>
         <item>About</item>
         <item>Log Out</item>

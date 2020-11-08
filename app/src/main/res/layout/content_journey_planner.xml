@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".JourneyPlannerActivity"
+    android:id="@+id/activityContent"
+    tools:showIn="@layout/activity_journey_planner">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shadow_border">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@drawable/plain_border"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <fragment
+                    android:id="@+id/source_autocomplete_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/plain_border"
+                    android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="@dimen/nav_header_vertical_spacing"
+                android:textSize="@dimen/info_text_size"
+                android:text="@string/enter_source_info"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@drawable/plain_border"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <fragment
+                    android:id="@+id/destination_autocomplete_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/plain_border"
+                    android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="@dimen/nav_header_vertical_spacing"
+                android:textSize="@dimen/info_text_size"
+                android:text="@string/enter_destination_info"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shadow_border">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/select_range_text"/>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/nav_header_vertical_spacing"
+                android:layout_marginLeft="-5dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/range10RadioButton"
+                    android:layout_weight="1"
+                    android:text="within 10 KM"
+                    android:textSize="@dimen/info_text_size"
+                    android:onClick="onRangeRadioButtonClicked" />
+
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/range20RadioButton"
+                    android:layout_weight="1"
+                    android:text="within 20 KM"
+                    android:textSize="@dimen/info_text_size"
+                    android:onClick="onRangeRadioButtonClicked" />
+
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/range50RadioButton"
+                    android:layout_weight="1"
+                    android:text="within 50 KM"
+                    android:textSize="@dimen/info_text_size"
+                    android:checked="true"
+                    android:onClick="onRangeRadioButtonClicked" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorWhite"
+            android:text="@string/search_travellers"
+            android:drawableLeft="@drawable/ic_search_travellers"
+            android:padding="12dp"
+            android:onClick="onSearchTravellersButtonClicked"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:textSize="@dimen/info_text_size"
+            android:visibility="invisible"
+            android:text="@string/your_last_24_hours_search_history"
+            android:id="@+id/searchHistoryListInfoTextView" />
+
+        <ListView
+            android:id="@+id/searchHistoryListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shadow_border" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

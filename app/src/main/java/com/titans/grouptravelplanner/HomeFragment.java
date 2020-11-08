@@ -1,5 +1,6 @@
 package com.titans.grouptravelplanner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -67,6 +68,11 @@ public class HomeFragment extends Fragment {
 
         getView().findViewById(R.id.create_post).setOnClickListener(v ->
                 PostsActivity.startActivity(getActivity()));
+
+        getView().findViewById(R.id.find_friends).setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), JourneyPlannerActivity.class);
+            startActivity(intent);
+        });
 
         refreshLayout=view.findViewById(R.id.refreshLayout);
 
